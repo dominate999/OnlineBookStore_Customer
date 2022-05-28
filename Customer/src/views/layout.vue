@@ -2,9 +2,9 @@
 	<div>
 		<el-container>
 			<el-header>
-				<el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
-
-					<el-menu-item index="1" route="index"><i class="el-icon-edit"></i>课程大作业学习平台</el-menu-item>
+				<el-menu background-color="#F56C6C" text-color="#000000" default-active="1" class="el-menu-demo"
+					mode="horizontal" @select="handleSelect" router>
+					<el-menu-item index="1" route="index"><i class="el-icon-edit"></i>网上书店</el-menu-item>
 					<el-submenu index="2">
 						<template slot="title"><i class="el-icon-user"></i>{{this.$store.state.username}}</template>
 						<el-menu-item index="2-1" route="info">我的信息</el-menu-item>
@@ -12,27 +12,24 @@
 						<el-menu-item index="2-3" route="/">退出登录</el-menu-item>
 					</el-submenu>
 					<el-menu-item index="3" route="index"><i class="el-icon-message"></i>消息中心</el-menu-item>
+					<el-menu-item index="3" route="index"><i class="el-icon-s-goods"></i>购物车</el-menu-item>
+					<el-menu-item index="3" route="index"><i class="el-icon-s-order"></i>订单中心</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-container>
-				<leftNav></leftNav>
 				<el-main>
 					<router-view></router-view>
 				</el-main>
 			</el-container>
-			<!-- <el-footer>
-					Copyright © 2021-2022 19201124-颜杰 nchu All Rights Reserved.
-			</el-footer> -->
 		</el-container>
 	</div>
 </template>
 
 <script>
-	import leftNav from '../components/leftNav.vue'
 	export default {
 		name: 'layout',
 		components: {
-			leftNav
+
 		},
 		data() {
 			return {
@@ -65,10 +62,9 @@
 		color: #333;
 		text-align: center;
 		line-height: 60px;
-
 	}
 
-	
+
 
 	body>.el-container {
 		margin-bottom: 40px;

@@ -14,7 +14,7 @@ let routes = [{
 			// path:'/index',
 			// name:'index',
 			// component :  () => import(`../../views/index/index.vue`)
-			component: '/customer/index/index',
+			component: 'customer/index/index',
 		}, ]
 	},
 	{
@@ -23,7 +23,8 @@ let routes = [{
 	},
 	{
 		path: '/',
-		component: 'login/index'
+		component: 'login/index',
+		redirect: '/customer/index',
 	},
 	{
 		/* 找不到以上所有的路径时，就到默认路径 */
