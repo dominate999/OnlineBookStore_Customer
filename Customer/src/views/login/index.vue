@@ -1,9 +1,9 @@
 <template>
 	<div style="display: flex;justify-content: center; align-items: center;margin-top: 100px; flex-direction: column;">
 		<el-card class="box-card" style=" width: 500px;">
-			 <div slot="header" style="text-align: center;font-size: 5ex;" class="clearfix">
-			    <span>登录</span>
-			  </div>
+			<div slot="header" style="text-align: center;font-size: 5ex;" class="clearfix">
+				<span>登录</span>
+			</div>
 			<el-form ref="form" :model="form" label-width="100px">
 				<el-form-item label="用户名">
 					<el-input v-model="form.username" placeholder="请输入账号" style="width: 300px;"></el-input>
@@ -14,13 +14,15 @@
 				</el-form-item>
 				<el-form-item label="用户类型" style="width: 300px;">
 					<el-select v-model="form.accountType" placeholder="请选择您的身份">
-						<el-option label="学生" value="student"></el-option>
-						<el-option label="教师" value="teacher"></el-option>
+						<el-option label="顾客" value="customer"></el-option>
+						<el-option label="管理员" value="admin"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item style="margin-left: 80px;">
 					<el-button style="width: 100px;text-align: center;" type="primary" @click="toLogin">登录</el-button>
 				</el-form-item>
+				没有账号，立即注册！👉
+				<el-button type="text" @click="toRegister">注册</el-button>
 			</el-form>
 		</el-card>
 	</div>
@@ -37,33 +39,44 @@
 				form: {
 					username: '',
 					password: '',
-					accountType: 'student',
+					accountType: 'customer',
 					userId: '',
-					classId: '',
-					accountId:'',
+					accountId: '',
 				}
 			}
 		},
 		mounted() {
-			this.$get('/account/findAll')
+			this.$get('/account/queryAllCustomer')
 				.then(res => {
 					// 业务代码
-					console.log(res);
-					this.userlist = res;
+					console.log(res.data);
+					this.userlist = res.data;
 				})
 		},
 		methods: {
 			toLogin() {
 				let flag = 0
 				for (let i in this.userlist) {
+					if (this.userlist[i].username !== this.form.username) {
+						flag = 2;
+					}
+					if (this.userlist[i].username === this.form.username &&
+						this.userlist[i].password !== this.form.password) {
+						flag = 3;
+					}
+					if (this.userlist[i].username === this.form.username &&
+						this.userlist[i].password === this.form.password &&
+						this.userlist[i].accountType !== this.form.accountType) {
+						flag = 4;
+					}
+
+
 					if (this.userlist[i].username === this.form.username &&
 						this.userlist[i].password === this.form.password &&
 						this.userlist[i].accountType === this.form.accountType) {
 						flag = 1
-						this.form.userId = this.userlist[i].userId;
-						this.form.classId = this.userlist[i].classId;
-						this.form.accountId = this.userlist[i].accountId;
-						console.log(this.userlist[i].userId);
+						this.form.userId = this.userlist[i].customerId;
+						this.form.accountId = this.userlist[i].id;
 						break
 					}
 				}
@@ -73,26 +86,37 @@
 					this.$store.commit("setusername", this.form.username)
 					this.$store.commit("setuserId", this.form.userId)
 					this.$store.commit("setaccountType", this.form.accountType)
-					this.$store.commit("setclassId", this.form.classId)
 					this.$store.commit("setaccountId", this.form.accountId)
 					console.log(this.$store.state.isLogin)
-					router.push('/student/index')
-				} else {
-					this.$alert('检查用户/密码/类型是否错误', '登录失败', {
-						confirmButtonText: '确定',
-						callback: () => {
-							this.$message({
-								type: 'error',
-								message: `登录失败`
-							});
-						}
+					this.$message({
+						type: 'success',
+						message: `登录成功`
+					});
+					router.push('/customer/main')
+				} else if (flag == 2) {
+					this.$message({
+						type: 'error',
+						message: `请检查用户名`
+					});
+				} else if (flag == 3) {
+					this.$message({
+						type: 'error',
+						message: `请检查密码！`
+					});
+				} else if (flag == 4) {
+					this.$message({
+						type: 'error',
+						message: `请检查所选类型`
 					});
 				}
+			},
+			toRegister() {
+					router.push('/register')
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	
+
 </style>

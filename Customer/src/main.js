@@ -37,6 +37,5 @@ new Vue({
 		this.$store.state.username = sessionStorage.getItem("username")
 		this.$store.state.userId = sessionStorage.getItem("userId")
 		this.$store.state.accountType = sessionStorage.getItem("accountType")
-		this.$store.state.classId = sessionStorage.getItem("classId")
 	}
 }).$mount('#app')

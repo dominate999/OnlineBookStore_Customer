@@ -7,10 +7,9 @@ const store = new Vuex.Store({
 	state:{
 		username:"",
 		islogin:"",
-		userId:"",
-		accountType:"",
-		classId:"",
 		accountId:"",
+		accountType:"",
+		userId:"",
 	},
 	mutations:{
 		setusername(state,msg){
@@ -28,10 +27,6 @@ const store = new Vuex.Store({
 		islogin(state,msg){
 			state.islogin = msg
 			sessionStorage.setItem("islogin",msg)
-		},
-		setclassId(state,msg){
-			state.classId = msg
-			sessionStorage.setItem("classId",msg)
 		},
 		setaccountId(state,msg){
 			state.accountId = msg

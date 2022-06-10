@@ -1,4 +1,4 @@
-var baseUrl = 'http://localhost:8081/CourseDesign_war_exploded';
+var baseUrl = 'http://localhost:8081/BookStoreBackstage_war_exploded/';
 export function post (url, data) {
   var urlPath = baseUrl + url
   console.log(urlPath);

@@ -7,24 +7,80 @@
 
 let routes = [{
 		// component :  () => import(`../../views/layout.vue`),
-		path: "/customer",
+		path: "/",
 		component: 'layout',
-		redirect: '/404',
+		redirect: '/customer/main',
 		children: [{
-			// path:'/index',
-			// name:'index',
-			// component :  () => import(`../../views/index/index.vue`)
-			component: 'customer/index/index',
-		}, ]
+				// path:'/index',
+				// name:'customer_index',
+				// component :  () => import(`../../views/index/index.vue`)
+				component: 'customer/main',
+			},
+			{
+
+				component: 'customer/bookdetail/index',
+			},
+			{
+				component: 'customer/cart/index',
+			},
+
+			{
+				component: 'customer/shop',
+			},
+
+			{
+				component: 'customer/buy',
+			},
+			{
+				component: 'customer/userhome',
+				redirect: '/customer/order',
+				children: [{
+						component: 'customer/order/index',
+					},
+					{
+						component: 'customer/modify/index',
+					},
+					{
+						component: 'customer/info/index',
+					},
+					{
+						component: 'customer/return',
+					},
+					{
+						component: 'customer/refund',
+					},
+					{
+						component: 'customer/evaluate/index',
+					},
+					{
+						component: 'customer/message',
+					},
+					{
+						component: 'customer/serviceRecord',
+					},
+				],
+
+			},
+
+		]
 	},
 	{
 		path: "/404",
 		component: '404/index'
 	},
 	{
-		path: '/',
+		path: '/login',
 		component: 'login/index',
-		redirect: '/customer/index',
+
+	},
+	{
+		path: '/success',
+		component: 'success',
+	
+	},
+	{
+		path: '/register',
+		component: 'register/index'
 	},
 	{
 		/* 找不到以上所有的路径时，就到默认路径 */
